@@ -1,0 +1,9 @@
+#chartdiv {
+  float: right;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  background-color: red;
+  width: 50%;
+  height: 500px;
+  border-radius: 10px;
+}

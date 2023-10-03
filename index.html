@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ejemplo de nueva página para GOB.mx</title>
+
+    <!-- CSS -->
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link href="https://framework-gb.cdn.gob.mx/assets/styles/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+
+    <!-- Contenido -->
+    <main class="page">
+        <div class="container">
+
+			<div id="chartdiv"></div>
+			<div id="info"></div>
+
+        </div>
+    </main>
+
+    <!-- JS -->
+    <script src="https://framework-gb.cdn.gob.mx/gobmx.js"></script>
+
+	<script src="//cdn.amcharts.com/lib/5/index.js"></script>
+	<script src="//cdn.amcharts.com/lib/5/map.js"></script>
+	<script src="//cdn.amcharts.com/lib/5/geodata/mexicoLow.js"></script>
+	<script src="//cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+	<script>
+
+// Create root and chart
+var root = am5.Root.new("chartdiv"); 
+
+// Set themes
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
+
+var chart = root.container.children.push(
+  am5map.MapChart.new(root, {
+    panX: "rotateX",
+    projection: am5map.geoNaturalEarth1()
+  })
+);
+
+// Create polygon series
+var polygonSeries = chart.series.push(
+  am5map.MapPolygonSeries.new(root, {
+    geoJSON: am5geodata_mexicoLow
+  })
+);
+
+polygonSeries.mapPolygons.template.setAll({
+  tooltipText: "{name}",
+  interactive: true
+});
+
+polygonSeries.mapPolygons.template.events.on("click", function() {
+  window.location.href = "https://www.imjuventud.gob.mx:9001/registro";
+});
+
+
+polygonSeries.mapPolygons.template.states.create("hover", {
+  fill: am5.color(0x677935)
+});
+
+	</script>
+
+
+</body>
+
+</html>
